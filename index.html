@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usability Smells - Annotation Tool</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mb-4">Usability Smells - Annotation Tool</h1>
+
+    <div class="mb-4">
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="username">Anotador<span class='text-danger'>*</span>:</label>
+                <input type="text" class="form-control" id="username" placeholder="Seu nome" onchange="saveDataOnTheFly();">
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label for="date">Data de hoje<span class='text-danger'>*</span>:</label>
+                <input type="date" class="form-control" id="date" onchange="saveDataOnTheFly();">
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label for="code">Código do usuário<span class='text-danger'>*</span>:</label>
+                <input type="text" class="form-control" id="code" placeholder="000" onchange="saveDataOnTheFly();">
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="videoContainer"></div>
+    <center><button class="btn btn-sm btn-light" href="#" onclick="toggleVideo()">Fechar/Abrir Video</button></center>
+
+    <div id="tasksContainer"></div>
+
+    <button class="btn btn-secondary mt-4" onclick="clearStorage()">Clear local storage</button>
+    <button class="btn btn-primary mt-4 float-right" onclick="downloadData()">Download Data</button>
+
+
+    <div class="container">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 mt-5 border-top">
+        <p class="col-md-6 mb-0 text-body-secondary">
+          © 2023 University of São Paulo, University of Lisbon.
+        </p>
+        <p class="col-md-4 mb-0 text-body-secondary text-right">
+          Source code available on GitHub.
+        </p>
+      </footer>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+
+<script src="main.js"></script>
+
+</body>
+</html>
