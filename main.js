@@ -95,6 +95,7 @@ const issues = [
 
 
 var videoOpened = true;
+
 function toggleVideo(){
     if(videoOpened){
         document.getElementById('videoContainer').style.display = 'none';
@@ -126,6 +127,7 @@ function saveDataOnTheFly() {
                 let timeValues = [];
                 let timeInputs = document.querySelectorAll(`input[data-task="${i+1}"][data-issue="${issue.label}"]`);
                 timeInputs.forEach(input => {
+                    validateTimeInput(input);
                     timeValues.push(input.value);
                 });
                 taskData.issues[issue.label] = timeValues;
@@ -152,8 +154,8 @@ function populateData() {
         issues.forEach(issue => {
             
             if (issue.type === 'checkbox') {
-                const inputElem = document.querySelector(`input[data-task="${index+1}"][data-issue="${issue.label}"]`);
-                inputElem.checked = task.issues[issue.label] === 'X';
+                const input = document.querySelector(`input[data-task="${index+1}"][data-issue="${issue.label}"]`);
+                input.checked = task.issues[issue.label] === 'X';
             } else if (issue.type === 'time') {
 
                 // Get the array of saved times
@@ -166,8 +168,9 @@ function populateData() {
 
                 // Iterate over input elements and populate values from the array
                 const inputElems = document.querySelectorAll(`input[data-task="${index+1}"][data-issue="${issue.label}"]`);
-                inputElems.forEach((inputElem, i) => {
-                    inputElem.value = timeValues[i] || '';  // The '|| ""' is to handle cases where there might be more inputs than saved values
+                inputElems.forEach((input, i) => {
+                    input.value = timeValues[i] || '';  // The '|| ""' is to handle cases where there might be more inputs than saved values
+                    validateTimeInput(input);
                 });
             }
         });
@@ -186,6 +189,12 @@ function downloadData() {
         return false; 
     }
 
+    // Check if the time inputs are unformatted and if the initial times are empty
+    if (!validateAllInputs()){
+        alert('Corriga os campos em vermelho.');
+        return false;
+    }
+
     const data = localStorage.getItem('annotationData');
     if (!data) {
         alert('No data to download');
@@ -196,6 +205,61 @@ function downloadData() {
     a.href = URL.createObjectURL(blob);
     a.download = 'annotationData.json';
     a.click();
+}
+
+
+function isValidTimeFormat(timeString) {
+    const isFormatOk = /^(([0-2][0-9]):)?([0-5][0-9]):([0-5][0-9])$/.test(timeString);
+
+    if(isFormatOk){
+        if (timeString.length > 5) {
+            const parts = timeString.split(":");
+            const hour = parseInt(parts[0], 10);
+            const minutes = parseInt(parts[1], 10);
+            const seconds = parseInt(parts[2], 10);
+            return (hour >= 0 && hour < 24) && (minutes >= 0 && minutes < 60) && (seconds >= 0 && seconds < 60)
+            
+        }
+        else if (timeString.length > 2) {
+            const parts = timeString.split(":");
+            const minutes = parseInt(parts[0], 10);
+            const seconds = parseInt(parts[1], 10);
+            return (minutes >= 0 && minutes < 60) && (seconds >= 0 && seconds < 60);
+        }
+    }
+    return false;
+}
+
+function validateTimeInput(input, issueLabel = ""){
+    if(issueLabel === "Tempo inicial" && input.value.length == 0){
+        input.style.borderColor = '#dc3545';
+        return false;
+    }
+    if(!isValidTimeFormat(input.value) && input.value.length > 0){
+        input.style.borderColor = '#dc3545';
+        return false;
+    }
+    else{
+        input.style.borderColor = '#ced4da';
+        return true;
+    }
+}
+
+function validateAllInputs(){
+    let isValid = true;
+    for (let i = 0; i < tasksName.length; i++) {
+        issues.forEach(issue => {
+            if(issue.type === 'time') {
+                let timeInputs = document.querySelectorAll(`input[data-task="${i+1}"][data-issue="${issue.label}"]`);
+                timeInputs.forEach(input => {
+                    if(!validateTimeInput(input, issue.label)){
+                        isValid = false;
+                    }
+                });
+            }
+        });
+    }
+    return isValid;
 }
 
 tasksName.forEach((taskName, index) => {
@@ -221,8 +285,11 @@ tasksName.forEach((taskName, index) => {
         const th = document.createElement('th');
         th.className = 'text-center';
         th.scope = 'col';
-        th.textContent = issue.label;
-
+        th.textContent = issue.label;   
+        if(issue.label == "Tempo inicial"){
+            th.textContent += '*';
+        }
+         
         th.setAttribute('data-toggle', 'tooltip');
         th.setAttribute('data-placement', 'top');
         th.setAttribute('title', issue.description);
@@ -256,12 +323,20 @@ tasksName.forEach((taskName, index) => {
             timeInputContainer.className = 'time-input-container d-flex flex-column align-items-center';
 
             const input = document.createElement('input');
-            input.type = 'time';
-            input.setAttribute('data-task', index + 1);
-            input.setAttribute('data-issue', issue.label);
-
+            input.type = 'text';
             input.placeholder = 'mm:ss';
             input.className = 'form-control time-input';
+            input.setAttribute('data-task', index + 1);
+            input.setAttribute('data-issue', issue.label);
+            input.addEventListener("input", function () {
+                const value = this.value.replace(/[^0-9]/g, "");
+                if (value.length > 4) {
+                    this.value = value.slice(0, 2) + ":" + value.slice(2, 4) + ":" + value.slice(4);
+                }
+                else if (value.length > 2) {
+                    this.value = value.slice(0, 2) + ":" + value.slice(2);
+                }
+            });
             input.addEventListener('change', saveDataOnTheFly);
 
             timeInputContainer.appendChild(input);
@@ -275,12 +350,11 @@ tasksName.forEach((taskName, index) => {
                 addTimeButton.setAttribute('data-issue', issue.label);
                 addTimeButton.onclick = function() {
                     const newTimeInput = document.createElement('input');
-                    newTimeInput.type = 'time';
-                    newTimeInput.setAttribute('data-task', index + 1);
-                    newTimeInput.setAttribute('data-issue', issue.label);
-
+                    newTimeInput.type = 'text';
                     newTimeInput.placeholder = 'mm:ss';
                     newTimeInput.className = 'form-control time-input';
+                    newTimeInput.setAttribute('data-task', index + 1);
+                    newTimeInput.setAttribute('data-issue', issue.label);
                     newTimeInput.addEventListener('change', saveDataOnTheFly);
 
                     timeInputContainer.appendChild(newTimeInput);
@@ -341,6 +415,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Parse the URL to get video ID
     const urlParams = new URLSearchParams(window.location.search);
     const videoId = urlParams.get('videoId');
+    const videoContainer = document.getElementById('videoContainer');
     
     if (videoId) {
         // Create the iframe
@@ -352,11 +427,11 @@ document.addEventListener("DOMContentLoaded", function() {
         iframe.frameborder = '0';
         
         // Append the iframe to our video container
-        document.getElementById('videoContainer').appendChild(iframe);
+        videoContainer.appendChild(iframe);
     }
     else{
-        document.getElementById('videoContainer').innerHTML = "Video id was not specified.";
-        document.getElementById('videoContainer').style.position = 'static';
-        document.getElementById('videoContainer').style.paddingTop = '0px';
+        videoContainer.innerHTML = "<p class='text-danger'>Video id was not specified.</p>";
+        videoContainer.style.position = 'static';
+        videoContainer.style.paddingTop = '0px';
     }
 });
