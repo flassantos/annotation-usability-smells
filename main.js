@@ -1,4 +1,5 @@
-const tasksName = [
+let tasksName; 
+const tasksName_perspective = [
     "Se cadastre na Perspective",
     "Altere sua foto de perfil",
     "Adicione um amigo",
@@ -17,6 +18,17 @@ const tasksName = [
     "Altere a publicação feita em seu mural na tarefa 5",
     "Faça logout da Perspective"
 ];
+const tasksName_loveSocial = [
+    "a",
+    "b"
+];
+const tasksName_socialNetwork = [
+    "bla",
+    "foor",
+    "ajsi",
+    "asdfp"
+];
+
 
 const issues = [
   { 
@@ -262,120 +274,6 @@ function validateAllInputs(){
     return isValid;
 }
 
-tasksName.forEach((taskName, index) => {
-    const taskRow = document.createElement('div');
-    taskRow.className = 'row my-2';
-
-    const taskCard = document.createElement('div');
-    taskCard.className = 'card col';
-
-    const taskTitle = document.createElement('div');
-    taskTitle.className = 'task-title';
-    taskTitle.textContent = `Tarefa ${index + 1} - ${taskName}`;
-    taskCard.appendChild(taskTitle);
-
-    const issuesTable = document.createElement('table');
-    issuesTable.className = 'table';
-
-    // Create table header with issue names
-    const thead = document.createElement('thead');
-    const headerRow = document.createElement('tr');
-
-    issues.forEach(issue => {
-        const th = document.createElement('th');
-        th.className = 'text-center';
-        th.scope = 'col';
-        th.textContent = issue.label;   
-        if(issue.label == "Tempo inicial"){
-            th.textContent += '*';
-        }
-         
-        th.setAttribute('data-toggle', 'tooltip');
-        th.setAttribute('data-placement', 'top');
-        th.setAttribute('title', issue.description);
-
-        th.style.maxWidth = issue.width;
-        th.style.minWidth = issue.width; 
-        headerRow.appendChild(th);
-    });
-    thead.appendChild(headerRow);
-    issuesTable.appendChild(thead);
-
-    // Create table body with inputs
-    const tbody = document.createElement('tbody');
-    const inputRow = document.createElement('tr');
-    inputRow.className = 'text-center';  // Add this line for alignment
-
-    issues.forEach((issue, idx) => {
-        const td = document.createElement('td');
-        td.className = 'text-center';  // Add this line for alignment
-        if (issue.type === 'checkbox') {
-            const input = document.createElement('input');
-            input.type = 'checkbox';
-            input.setAttribute('data-task', index + 1);
-            input.setAttribute('data-issue', issue.label);
-
-            input.addEventListener('change', saveDataOnTheFly);
-            td.appendChild(input);
-        } 
-        else {
-            const timeInputContainer = document.createElement('div');
-            timeInputContainer.className = 'time-input-container d-flex flex-column align-items-center';
-
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.placeholder = 'mm:ss';
-            input.className = 'form-control time-input';
-            input.setAttribute('data-task', index + 1);
-            input.setAttribute('data-issue', issue.label);
-            input.addEventListener("input", function () {
-                const value = this.value.replace(/[^0-9]/g, "");
-                if (value.length > 4) {
-                    this.value = value.slice(0, 2) + ":" + value.slice(2, 4) + ":" + value.slice(4);
-                }
-                else if (value.length > 2) {
-                    this.value = value.slice(0, 2) + ":" + value.slice(2);
-                }
-            });
-            input.addEventListener('change', saveDataOnTheFly);
-
-            timeInputContainer.appendChild(input);
-
-            // Button to add another timestamp field
-            if ([3, 4, 7, 9].includes(idx - 1)) {  // The index of issues 4, 5, 8, 10 (0-based indexing)
-                const addTimeButton = document.createElement('button');
-                addTimeButton.className = "btn btn-sm btn-secondary"
-                addTimeButton.textContent = "+";
-                addTimeButton.setAttribute('data-task', index + 1);
-                addTimeButton.setAttribute('data-issue', issue.label);
-                addTimeButton.onclick = function() {
-                    const newTimeInput = document.createElement('input');
-                    newTimeInput.type = 'text';
-                    newTimeInput.placeholder = 'mm:ss';
-                    newTimeInput.className = 'form-control time-input';
-                    newTimeInput.setAttribute('data-task', index + 1);
-                    newTimeInput.setAttribute('data-issue', issue.label);
-                    newTimeInput.addEventListener('change', saveDataOnTheFly);
-
-                    timeInputContainer.appendChild(newTimeInput);
-                }
-                timeInputContainer.appendChild(addTimeButton);
-            }
-
-            td.appendChild(timeInputContainer);
-        }
-
-        inputRow.appendChild(td);
-    });
-
-    tbody.appendChild(inputRow);
-    issuesTable.appendChild(tbody);
-
-    taskCard.appendChild(issuesTable);
-    taskRow.appendChild(taskCard);
-    tasksContainer.appendChild(taskRow);
-});
-
 
 function clearStorage() {
     const confirmed = confirm("Are you sure you want to clear the local storage? This action cannot be undone.");
@@ -402,7 +300,154 @@ function populateTodaysDate() {
 }
 
 
+function initialize(tasksName){
+    tasksName.forEach((taskName, index) => {
+        const taskRow = document.createElement('div');
+        taskRow.className = 'row my-2';
+
+        const taskCard = document.createElement('div');
+        taskCard.className = 'card col';
+
+        const taskTitle = document.createElement('div');
+        taskTitle.className = 'task-title';
+        taskTitle.textContent = `Tarefa ${index + 1} - ${taskName}`;
+        taskCard.appendChild(taskTitle);
+
+        const issuesTable = document.createElement('table');
+        issuesTable.className = 'table';
+
+        // Create table header with issue names
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+
+        issues.forEach(issue => {
+            const th = document.createElement('th');
+            th.className = 'text-center';
+            th.scope = 'col';
+            th.textContent = issue.label;   
+            if(issue.label == "Tempo inicial"){
+                th.textContent += '*';
+            }
+             
+            th.setAttribute('data-toggle', 'tooltip');
+            th.setAttribute('data-placement', 'top');
+            th.setAttribute('title', issue.description);
+
+            th.style.maxWidth = issue.width;
+            th.style.minWidth = issue.width; 
+            headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        issuesTable.appendChild(thead);
+
+        // Create table body with inputs
+        const tbody = document.createElement('tbody');
+        const inputRow = document.createElement('tr');
+        inputRow.className = 'text-center';  // Add this line for alignment
+
+        issues.forEach((issue, idx) => {
+            const td = document.createElement('td');
+            td.className = 'text-center';  // Add this line for alignment
+            if (issue.type === 'checkbox') {
+                const input = document.createElement('input');
+                input.type = 'checkbox';
+                input.setAttribute('data-task', index + 1);
+                input.setAttribute('data-issue', issue.label);
+
+                input.addEventListener('change', saveDataOnTheFly);
+                td.appendChild(input);
+            } 
+            else {
+                const timeInputContainer = document.createElement('div');
+                timeInputContainer.className = 'time-input-container d-flex flex-column align-items-center';
+
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.placeholder = 'mm:ss';
+                input.className = 'form-control time-input';
+                input.setAttribute('data-task', index + 1);
+                input.setAttribute('data-issue', issue.label);
+                input.addEventListener("input", function () {
+                    const value = this.value.replace(/[^0-9]/g, "");
+                    if (value.length > 4) {
+                        this.value = value.slice(0, 2) + ":" + value.slice(2, 4) + ":" + value.slice(4);
+                    }
+                    else if (value.length > 2) {
+                        this.value = value.slice(0, 2) + ":" + value.slice(2);
+                    }
+                });
+                input.addEventListener('change', saveDataOnTheFly);
+
+                timeInputContainer.appendChild(input);
+
+                // Button to add another timestamp field
+                if ([3, 4, 7, 9].includes(idx - 1)) {  // The index of issues 4, 5, 8, 10 (0-based indexing)
+                    const addTimeButton = document.createElement('button');
+                    addTimeButton.className = "btn btn-sm btn-secondary"
+                    addTimeButton.textContent = "+";
+                    addTimeButton.setAttribute('data-task', index + 1);
+                    addTimeButton.setAttribute('data-issue', issue.label);
+                    addTimeButton.onclick = function() {
+                        const newTimeInput = document.createElement('input');
+                        newTimeInput.type = 'text';
+                        newTimeInput.placeholder = 'mm:ss';
+                        newTimeInput.className = 'form-control time-input';
+                        newTimeInput.setAttribute('data-task', index + 1);
+                        newTimeInput.setAttribute('data-issue', issue.label);
+                        newTimeInput.addEventListener('change', saveDataOnTheFly);
+                        newTimeInput.addEventListener("input", function () {
+                            const value = this.value.replace(/[^0-9]/g, "");
+                            if (value.length > 4) {
+                                this.value = value.slice(0, 2) + ":" + value.slice(2, 4) + ":" + value.slice(4);
+                            }
+                            else if (value.length > 2) {
+                                this.value = value.slice(0, 2) + ":" + value.slice(2);
+                            }
+                        });
+
+                        timeInputContainer.appendChild(newTimeInput);
+                    }
+                    timeInputContainer.appendChild(addTimeButton);
+                }
+
+                td.appendChild(timeInputContainer);
+            }
+
+            inputRow.appendChild(td);
+        });
+
+        tbody.appendChild(inputRow);
+        issuesTable.appendChild(tbody);
+
+        taskCard.appendChild(issuesTable);
+        taskRow.appendChild(taskCard);
+        tasksContainer.appendChild(taskRow);
+    });
+}
+
+
 document.addEventListener("DOMContentLoaded", function() {
+    // Parse the URL to get video ID
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    const networkName = urlParams.get('networkName');
+    if (networkName) {
+        if (networkName === "lovesocial") { // Use strict equality for comparison
+            tasksName = tasksName_loveSocial;
+        } else if (networkName === "socialnetwork") { // Use strict equality for comparison
+            tasksName = tasksName_socialNetwork;
+        } else {
+            tasksName = tasksName_perspective;
+        }
+    } else {
+        tasksName = tasksName_perspective;
+    }
+    initialize(tasksName);
+
+
+    const videoId = urlParams.get('videoId');
+    const videoContainer = document.getElementById('videoContainer');
+
     // This initializes all tooltips on the page
     $('[data-toggle="tooltip"]').tooltip();
 
@@ -411,11 +456,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Populate the data from localStorage
     populateData();
 
-
-    // Parse the URL to get video ID
-    const urlParams = new URLSearchParams(window.location.search);
-    const videoId = urlParams.get('videoId');
-    const videoContainer = document.getElementById('videoContainer');
     
     if (videoId) {
         // Create the iframe
