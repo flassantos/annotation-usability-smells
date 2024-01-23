@@ -1,3 +1,8 @@
+// PERSPECTIVE  ====>   index.html?videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
+// PERSPECTIVE  ====>   index.html?networkName=perspective&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
+// LOVE SOCIAL  ====>   index.html?networkName=lovesocial&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
+// SOCIAL NETWORK  ====>   index.html?networkName=socialnetwork&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
+
 let tasksName; 
 const tasksName_perspective = [
     "Se cadastre na Perspective",
@@ -19,14 +24,35 @@ const tasksName_perspective = [
     "Faça logout da Perspective"
 ];
 const tasksName_loveSocial = [
-    "a",
-    "b"
+    "Se cadastre na Love Social",
+    "Altere sua foto de perfil",
+    "Siga 2 usuários",
+    "Volte para a página principal",
+    "Publique a mensagem abaixo em seu mural, completando com a descrição de sua atividade favorita",
+    "Adicione uma foto ao seu mural",
+    "Visualize as informações do usuário 'Duke'",
+    "Comente um post de algum usuário",
+    "Altere suas informações do seu perfil",
+    "Veja os perfis que você segue",
+    "Faça logout da Love Social"
 ];
 const tasksName_socialNetwork = [
-    "bla",
-    "foor",
-    "ajsi",
-    "asdfp"
+    "Se cadastre na Social Network e faça login",
+    "Altere sua foto de perfil",
+    "Siga um amigo",
+    "Volte para a página principal",
+    "Publique em seu mural uma imagem com a mensagem abaixo, completando com a descrição de sua atividade favorita",
+    "Poste outra foto em seu perfil",
+    "Visualize o perfil do usuário 'Dogui'",
+    "Comente uma publicação de Dogui",
+    "Envie a seguinte mensagem para Dogui",
+    "Curta uma publicação de um usuário brasileiro",
+    "Cheque suas mensagens",
+    "Siga mais 2 amigos, um deles deve ser o Patrick Jane",
+    "Altere suas informações do seu perfil",
+    "Deixe de seguir um dos perfis que você segue neste momento",
+    "Altere a publicação feita em seu perfil na tarefa 5",
+    "Faça logout da Social-Network"
 ];
 
 
@@ -102,6 +128,12 @@ const issues = [
     type: 'checkbox', 
     width: '150px',
     description: "Ocorre quando os erros de input só são verificados após a submissão da tarefa. Pode indicar validação tardia dos campos, o que pode desmotivar o usuário."
+  },
+  { 
+    label: 'Tarefa concluída', 
+    type: 'checkbox', 
+    width: '170px',
+    description: "Marque esta opção somente se o usuário conseguiu concluir a tarefa com sucesso."
   }
 ];
 
