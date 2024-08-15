@@ -1,4 +1,4 @@
-// PERSPECTIVE  ====>   index.html?videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
+// Example  ====>   index.html?videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
 // PERSPECTIVE  ====>   index.html?networkName=perspective&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
 // LOVE SOCIAL  ====>   index.html?networkName=lovesocial&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
 // SOCIAL NETWORK  ====>   index.html?networkName=socialnetwork&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
@@ -571,11 +571,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const issueFlag = urlParams.get('issueFlag'); // New parameter for selecting issues
     // Select the appropriate issues array based on the URL parameter
-    if (issueFlag === "IssuesPT") {
+    if (issueFlag === "PT") {
         issues = issues;  // Switch to the new issues array
     } else {
         issues = issues_eng;  // Use the default issues array
     }
+    initialize(issues);
 
     
     const videoId = urlParams.get('videoId');
