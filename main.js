@@ -66,7 +66,7 @@ const tasksName_example = [
 ];
 
 
-let issues;
+let issues = [];
 
 const issues_pt = [
   { 
