@@ -65,7 +65,7 @@ const tasksName_example = [
     "Log out of Love Social"
 ];
 
-let issues;
+
 const issues = [
   { 
     label: 'Tempo inicial', 
@@ -571,9 +571,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const issueFlag = urlParams.get('issueFlag'); // New parameter for selecting issues
     // Select the appropriate issues array based on the URL parameter
-    if (issueFlag === "PT") {
-        issues = issues;  // Switch to the new issues array
-    } else {
+    if (issueFlag != "PT") {
         issues = issues_eng;  // Use the default issues array
     }
 
