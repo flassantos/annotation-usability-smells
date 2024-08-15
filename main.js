@@ -569,7 +569,7 @@ document.addEventListener("DOMContentLoaded", function() {
     } else {
         tasksName = tasksName_example;
     }
-    initialize(tasksName);
+    
 
     const issueFlag = urlParams.get('issueFlag'); // New parameter for selecting issues
     // Select the appropriate issues array based on the URL parameter
@@ -579,6 +579,8 @@ document.addEventListener("DOMContentLoaded", function() {
     else{
         issues = issues_pt;
     }
+
+    initialize(tasksName);
 
     
     const videoId = urlParams.get('videoId');
