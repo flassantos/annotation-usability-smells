@@ -66,7 +66,9 @@ const tasksName_example = [
 ];
 
 
-const issues = [
+let issues;
+
+const issues_pt = [
   { 
     label: 'Tempo inicial', 
     type: 'time', 
@@ -573,6 +575,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Select the appropriate issues array based on the URL parameter
     if (issueFlag != "PT") {
         issues = issues_eng;  // Use the default issues array
+    }
+    else{
+        issues = issues_pt;
     }
 
     
