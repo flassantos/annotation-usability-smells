@@ -435,7 +435,7 @@ function initialize(tasksName){
 
         const taskTitle = document.createElement('div');
         taskTitle.className = 'task-title';
-        taskTitle.textContent = `Tarefa ${index + 1} - ${taskName}`;
+        taskTitle.textContent = `Task ${index + 1} - ${taskName}`;
         taskCard.appendChild(taskTitle);
 
         const issuesTable = document.createElement('table');
