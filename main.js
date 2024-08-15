@@ -576,7 +576,6 @@ document.addEventListener("DOMContentLoaded", function() {
     } else {
         issues = issues_eng;  // Use the default issues array
     }
-    initialize(issues);
 
     
     const videoId = urlParams.get('videoId');
