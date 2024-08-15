@@ -54,14 +54,24 @@ const tasksName_socialNetwork = [
     "Altere a publicação feita em seu perfil na tarefa 5",
     "Faça logout da Social-Network"
 ];
+const tasksName_example = [
+    "Sign up on the Social Network",
+    "Change your profile picture",
+    "Follow 2 users",
+    "Return to the main page",
+    "Post a message in your profile",
+    "Update your profile information",
+    "See the profiles you follow",
+    "Log out of Love Social"
+];
 
-
+let issues;
 const issues = [
   { 
     label: 'Tempo inicial', 
     type: 'time', 
     width: '150px',
-    description: "O tempo de inicio da tarefa, seguindo o horário exibido no computador do usuário."
+    description: "O tempo de inicio da tarefa, de acordo com o tempo do vídeo."
   },
   { 
     label: 'Tarefa trabalhosa', 
@@ -137,6 +147,87 @@ const issues = [
   }
 ];
 
+
+const issues_eng = [
+  { 
+    label: 'Initial time', 
+    type: 'time', 
+    width: '150px',
+    description: "The task's start time, according to the video's time."
+  },
+  { 
+    label: 'Laborious Task', 
+    type: 'checkbox', 
+    width: '150px',
+    description: "Occurs when completing a task requires a large number of actions and takes an excessive amount of time, leading to decreased productivity and user engagement."
+  },
+  { 
+    label: 'Cyclic Task', 
+    type: 'checkbox', 
+    width: '150px',
+    description: "Occurs when a task involves performing many repetitive actions, making the task tedious and potentially tiring for the user."
+  },
+  { 
+    label: 'Too Many Layers', 
+    type: 'checkbox', 
+    width: '150px',
+    description: "Occurs when users must navigate through numerous pages to complete a task. This can negatively affect user performance by increasing complexity and time."
+  },
+  { 
+    label: 'Undescriptive Element', 
+    type: 'time', 
+    width: '150px',
+    description: "Occurs when users frequently try to hint at a particular element on the page, suggesting that the element is not adequately self-explanatory."
+  },
+  { 
+    label: 'Missing Action Feedback', 
+    type: 'time', 
+    width: '150px',
+    description: " Occurs when an action is repeatedly performed. It may indicate that the system is not providing feedback for the action."
+  },
+  { 
+    label: 'Missing Task Feedback', 
+    type: 'checkbox', 
+    width: '150px',
+    description: "Occurs when a task is repeated for the same inputs, suggesting that the system is not providing adequate feedback to the user."
+  },
+  { 
+    label: 'High Interaction Distance', 
+    type: 'checkbox', 
+    width: '150px',
+    description: "Occurs when related content is placed too far apart and whose display or interaction is crucial for performing tasks."
+  },
+  { 
+    label: 'Unnecessary Action', 
+    type: 'time', 
+    width: '150px',
+    description: "Occurs when a page contains only one action, which may indicate that the step could be streamlined or eliminated from the task flow to improve efficiency."
+  },
+  { 
+    label: 'Repetition in Text Fields', 
+    type: 'checkbox', 
+    width: '150px',
+    description: "Occurs when the same text is entered multiple times in a task, indicating that the task is asking for duplicate information, which can be redundant and frustrating."
+  },
+  { 
+    label: 'Misleading Action', 
+    type: 'time', 
+    width: '150px',
+    description: "Occurs when the user clicks on an element that switches pages but quickly returns to the previous page. It may indicate that the element is misleading and causes doubt in the user."
+  },
+  { 
+    label: 'Late Validation', 
+    type: 'checkbox', 
+    width: '150px',
+    description: "Occurs when errors in input are only detected after the task is submitted, indicating late validation. This can demotivate users."
+  },
+  { 
+    label: 'Task completed', 
+    type: 'checkbox', 
+    width: '170px',
+    description: "Check this option only if the user was able to complete the task."
+  }
+];
 
 var videoOpened = true;
 
@@ -464,19 +555,29 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const networkName = urlParams.get('networkName');
     if (networkName) {
-        if (networkName === "lovesocial") { // Use strict equality for comparison
+        if (networkName === "perspective") { // Use strict equality for comparison
+            tasksName = tasksName_perspective;
+        } else if (networkName === "lovesocial") { // Use strict equality for comparison
             tasksName = tasksName_loveSocial;
         } else if (networkName === "socialnetwork") { // Use strict equality for comparison
             tasksName = tasksName_socialNetwork;
         } else {
-            tasksName = tasksName_perspective;
+            tasksName = tasksName_example;
         }
     } else {
-        tasksName = tasksName_perspective;
+        tasksName = tasksName_example;
     }
     initialize(tasksName);
 
+    const issueFlag = urlParams.get('issueFlag'); // New parameter for selecting issues
+    // Select the appropriate issues array based on the URL parameter
+    if (issueFlag === "IssuesPT") {
+        issues = issues;  // Switch to the new issues array
+    } else {
+        issues = issues_eng;  // Use the default issues array
+    }
 
+    
     const videoId = urlParams.get('videoId');
     const videoContainer = document.getElementById('videoContainer');
 
