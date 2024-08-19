@@ -72,13 +72,13 @@ const issues_pt = [
   { 
     label: 'Tempo inicial', 
     type: 'time', 
-    width: '150px',
+    width: '145px',
     description: "O tempo de inicio da tarefa, de acordo com o tempo do vídeo."
   },
   { 
     label: 'Tarefa trabalhosa', 
     type: 'checkbox', 
-    width: '150px',
+    width: '155px',
     description: "Ocorre quando a execução da tarefa demanda a execução de um grande número de ações, e muito tempo, diminuindo a produtividade e engajamento."
   },
   { 
@@ -155,78 +155,91 @@ const issues_eng = [
     label: 'Initial time', 
     type: 'time', 
     width: '150px',
+    padding: '8px', // Adicionando padding específico
     description: "The task's start time, according to the video's time."
   },
   { 
     label: 'Laborious Task', 
     type: 'checkbox', 
     width: '150px',
+    padding: '8px', // Adicionando padding específico
     description: "Occurs when completing a task requires a large number of actions and takes an excessive amount of time, leading to decreased productivity and user engagement."
   },
   { 
     label: 'Cyclic Task', 
     type: 'checkbox', 
     width: '150px',
+    padding: '8px', // Adicionando padding específico
     description: "Occurs when a task involves performing many repetitive actions, making the task tedious and potentially tiring for the user."
   },
   { 
     label: 'Too Many Layers', 
     type: 'checkbox', 
     width: '150px',
+    padding: '8px', // Adicionando padding específico
     description: "Occurs when users must navigate through numerous pages to complete a task. This can negatively affect user performance by increasing complexity and time."
   },
   { 
     label: 'Undescriptive Element', 
     type: 'time', 
     width: '150px',
+    padding: '8px', // Adicionando padding específico
     description: "Occurs when users frequently try to hint at a particular element on the page, suggesting that the element is not adequately self-explanatory."
   },
   { 
     label: 'Missing Action Feedback', 
     type: 'time', 
     width: '150px',
+    padding: '8px', // Adicionando padding específico
     description: " Occurs when an action is repeatedly performed. It may indicate that the system is not providing feedback for the action."
   },
   { 
     label: 'Missing Task Feedback', 
     type: 'checkbox', 
     width: '150px',
+    padding: '8px', // Adicionando padding específico
     description: "Occurs when a task is repeated for the same inputs, suggesting that the system is not providing adequate feedback to the user."
   },
   { 
     label: 'High Interaction Distance', 
     type: 'checkbox', 
     width: '150px',
+    padding: '8px', // Adicionando padding específico
     description: "Occurs when related content is placed too far apart and whose display or interaction is crucial for performing tasks."
   },
   { 
     label: 'Unnecessary Action', 
     type: 'time', 
     width: '150px',
+    padding: '8px', // Adicionando padding específico
     description: "Occurs when a page contains only one action, which may indicate that the step could be streamlined or eliminated from the task flow to improve efficiency."
   },
   { 
     label: 'Repetition in Text Fields', 
     type: 'checkbox', 
     width: '150px',
+    padding: '8px', // Adicionando padding específico
     description: "Occurs when the same text is entered multiple times in a task, indicating that the task is asking for duplicate information, which can be redundant and frustrating."
   },
   { 
     label: 'Misleading Action', 
     type: 'time', 
     width: '150px',
+    padding: '8px', // Adicionando padding específico
     description: "Occurs when the user clicks on an element that switches pages but quickly returns to the previous page. It may indicate that the element is misleading and causes doubt in the user."
   },
   { 
     label: 'Late Validation', 
     type: 'checkbox', 
     width: '150px',
+    padding: '8px', // Adicionando padding específico
     description: "Occurs when errors in input are only detected after the task is submitted, indicating late validation. This can demotivate users."
   },
   { 
     label: 'Task completed', 
     type: 'checkbox', 
-    width: '170px',
+    width: '175px',
+    padding: '8px', // Adicionando padding específico
     description: "Check this option only if the user was able to complete the task."
   }
 ];
@@ -460,6 +473,10 @@ function initialize(tasksName){
 
             th.style.maxWidth = issue.width;
             th.style.minWidth = issue.width; 
+            // Aplicando padding, se definido
+            if (issue.padding) {
+                th.style.padding = issue.padding;
+            }
             headerRow.appendChild(th);
         });
         thead.appendChild(headerRow);
