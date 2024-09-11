@@ -615,8 +615,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (videoId) {
         // Create the iframe
         const iframe = document.createElement('iframe');
-        // iframe.src = `https://drive.google.com/file/d/${videoId}/preview`;
-        iframe.src = `https://drive.google.com/uc?id=${videoId}&export=preview`;
+        iframe.src = `https://drive.google.com/file/d/${videoId}/preview`;
         // iframe.width = '1024';
         // iframe.height = '600';
         iframe.allowFullscreen = true;
