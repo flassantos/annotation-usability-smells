@@ -590,11 +590,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const issueFlag = urlParams.get('issueFlag'); // New parameter for selecting issues
     // Select the appropriate issues array based on the URL parameter
-    if (issueFlag != "EN") {
-        issues = issues_pt;  // Use the default issues array
+    if (issueFlag != "PT") {
+        issues = issues_eng;  // Use the default issues array
     }
     else{
-        issues = issues_eng;
+        issues = issues_pt;
     }
 
     initialize(tasksName);
