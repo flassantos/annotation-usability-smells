@@ -62,7 +62,7 @@ const tasksName_example = [
     "Post a message in your profile",
     "Update your profile information",
     "See the profiles you follow",
-    "Log out of Love Social"
+    "Log out of Social Network"
 ];
 
 
@@ -590,7 +590,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const issueFlag = urlParams.get('issueFlag'); // New parameter for selecting issues
     // Select the appropriate issues array based on the URL parameter
-    if (issueFlag == "PT") {
+    if (issueFlag != "EN") {
         issues = issues_pt;  // Use the default issues array
     }
     else{
