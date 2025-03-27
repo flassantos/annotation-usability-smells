@@ -1,4 +1,5 @@
 // Example  ====>   index.html?videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
+// Example PT ===> index.html?networkName=RedeSocial&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
 // PERSPECTIVE  ====>   index.html?networkName=perspective&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
 // LOVE SOCIAL  ====>   index.html?networkName=lovesocial&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
 // SOCIAL NETWORK  ====>   index.html?networkName=socialnetwork&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
@@ -63,6 +64,13 @@ const tasksName_example = [
     "Update your profile information",
     "See the profiles you follow",
     "Log out of Social Network"
+];
+const tasksName_redeSocial = [
+    "Cadastre-se na Rede Social",
+    "Altere sua foto de perfil",
+    "Publique uma mensagem no seu perfil",
+    "Atualize as informações do seu perfil",
+    "Faça logout da Rede Social"
 ];
 
 
@@ -580,7 +588,9 @@ document.addEventListener("DOMContentLoaded", function() {
             tasksName = tasksName_loveSocial;
         } else if (networkName === "socialnetwork") { // Use strict equality for comparison
             tasksName = tasksName_socialNetwork;
-        } else {
+        } else if (networkName === "redeSocial") { // Use strict equality for comparison
+            tasksName = tasksName_redeSocial;
+        }else {
             tasksName = tasksName_example;
         }
     } else {
