@@ -1,8 +1,8 @@
-// Example  ====>   index.html?videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
-// Example PT ===> index.html?networkName=redeSocial&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
-// PERSPECTIVE  ====>   index.html?networkName=perspective&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
-// LOVE SOCIAL  ====>   index.html?networkName=lovesocial&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
-// SOCIAL NETWORK  ====>   index.html?networkName=socialnetwork&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
+// Example  ====>   index.html?videoId=17smHvKdj4ZteV1gV-zK9ojrPjlJDcEnX
+// Example PT ===> index.html?networkName=redeSocial&videoId=17smHvKdj4ZteV1gV-zK9ojrPjlJDcEnX
+// PERSPECTIVE  ====>   index.html?networkName=perspective&videoId=17smHvKdj4ZteV1gV-zK9ojrPjlJDcEnX
+// LOVE SOCIAL  ====>   index.html?networkName=lovesocial&videoId=17smHvKdj4ZteV1gV-zK9ojrPjlJDcEnX
+// SOCIAL NETWORK  ====>   index.html?networkName=socialnetwork&videoId=17smHvKdj4ZteV1gV-zK9ojrPjlJDcEnX
 
 let tasksName; 
 const tasksName_perspective = [
