@@ -258,21 +258,24 @@ function toggleVideo(){
 }
 
 function saveDataOnTheFly() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const networkName = urlParams.get('networkName') || 'example';
+    const issueFlag = urlParams.get('issueFlag') || 'ENG';
+
     const data = {
         username: document.getElementById('username').value,
         date: document.getElementById('date').value,
         code: document.getElementById('code').value,
         tasks: []
     };
-
+    
+    
     for (let i = 0; i < tasksName.length; i++) {
-        const taskData = {
-            issues: {},
-        };
-
+        const taskData = { issues: {} };
         issues.forEach(issue => {
             if (issue.type === 'checkbox') {
-                taskData.issues[issue.label] = document.querySelector(`input[data-task="${i+1}"][data-issue="${issue.label}"]`).checked ? 'X' : '';
+                const checkbox = document.querySelector(`input[data-task="${i+1}"][data-issue="${issue.label}"]`);
+                taskData.issues[issue.label] = checkbox?.checked ? 'X' : '';
             } else if (issue.type === 'time') {
                 let timeValues = [];
                 let timeInputs = document.querySelectorAll(`input[data-task="${i+1}"][data-issue="${issue.label}"]`);
@@ -282,18 +285,19 @@ function saveDataOnTheFly() {
                 });
                 taskData.issues[issue.label] = timeValues;
             }
-
         });
-
         data.tasks.push(taskData);
     }
 
-    localStorage.setItem('annotationData', JSON.stringify(data));
-
+    localStorage.setItem(`annotationData_${networkName}_${issueFlag}`, JSON.stringify(data));
 }
 
 function populateData() {
-    const data = JSON.parse(localStorage.getItem('annotationData'));
+    const urlParams = new URLSearchParams(window.location.search);
+    const networkName = urlParams.get('networkName') || 'example';
+    const issueFlag = urlParams.get('issueFlag') || 'ENG';
+
+    const data = JSON.parse(localStorage.getItem(`annotationData_${networkName}_${issueFlag}`));
     if (!data) return;
 
     document.getElementById('username').value = data.username;
@@ -302,24 +306,20 @@ function populateData() {
 
     data.tasks.forEach((task, index) => {
         issues.forEach(issue => {
-            
             if (issue.type === 'checkbox') {
                 const input = document.querySelector(`input[data-task="${index+1}"][data-issue="${issue.label}"]`);
-                input.checked = task.issues[issue.label] === 'X';
+                if (input) input.checked = task.issues[issue.label] === 'X';
             } else if (issue.type === 'time') {
+                let timeValues = task.issues[issue.label] || [];
 
-                // Get the array of saved times
-                let timeValues = task.issues[issue.label];
-
-                // Create additional time inputs
                 for (var i = 1; i < timeValues.length; i++) {
-                    document.querySelector(`button[data-task="${index+1}"][data-issue="${issue.label}"]`).click();
+                    const addButton = document.querySelector(`button[data-task="${index+1}"][data-issue="${issue.label}"]`);
+                    if (addButton) addButton.click();
                 }
 
-                // Iterate over input elements and populate values from the array
                 const inputElems = document.querySelectorAll(`input[data-task="${index+1}"][data-issue="${issue.label}"]`);
                 inputElems.forEach((input, i) => {
-                    input.value = timeValues[i] || '';  // The '|| ""' is to handle cases where there might be more inputs than saved values
+                    input.value = timeValues[i] || '';
                     validateTimeInput(input);
                 });
             }
