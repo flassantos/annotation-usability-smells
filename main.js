@@ -1,5 +1,5 @@
 // Example  ====>   index.html?videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
-// Example PT ===> index.html?networkName=RedeSocial&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
+// Example PT ===> index.html?networkName=redeSocial&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
 // PERSPECTIVE  ====>   index.html?networkName=perspective&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
 // LOVE SOCIAL  ====>   index.html?networkName=lovesocial&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
 // SOCIAL NETWORK  ====>   index.html?networkName=socialnetwork&videoId=1x2_04keuXj0Mt2aPDB2zjJNuMbtKBr4l
@@ -353,7 +353,11 @@ function downloadData() {
         return false;
     }
 
-    const data = localStorage.getItem('annotationData');
+    const urlParams = new URLSearchParams(window.location.search);
+    const networkName = urlParams.get('networkName') || 'example';
+    const issueFlag = urlParams.get('issueFlag') || 'ENG';
+
+    const data = localStorage.getItem(`annotationData_${networkName}_${issueFlag}`);
     if (!data) {
         alert('No data to download');
         return;
